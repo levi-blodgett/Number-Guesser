@@ -21,6 +21,11 @@ const UI_game = document.querySelector('#game'),
       UI_guessInput = document.querySelector('#guess-input'),
       UI_message = document.querySelector('.message');
 
+// Color values
+const color_win = 'green',
+      color_lose = 'red',
+      color_continue = 'darkorange';
+
 // Assign UI min and max
 UI_minNum.textContent = min;
 UI_maxNum.textContent = max;
@@ -36,16 +41,37 @@ UI_guessBtn.addEventListener('click', function(){
 
   // Check if user won
   if (guess === winningNum) {
-    // Disable input
-    UI_guessInput.disabled = true;
-    // Change border color
-    UI_guessInput.style.borderColor = 'green';
-    // Set message
-    setMessage(`${winningNum} is correct, YOU WIN!`, 'green');
+    // Game over - won
+    guessOutcome(`${winningNum} is correct, YOU WIN!`, color_win);
   } else {
-    
+    // Wrong number
+    guessesLeft -=1;
+
+    if (guessesLeft === 0){
+      // Game over - lost
+      guessOutcome(`Game over, you lost. The correct number was ${winningNum}.`, color_lose);
+    } else {
+      // Game continues - answer wrong
+      guessOutcome(`${guess} is not correct, ${guessesLeft} guesses left.`, color_continue);
+    }
   }
 });
+
+// Guess outcome
+function guessOutcome(msg, color){
+  // If statement to determine whether the game is over
+  if (color === color_continue) {
+    // Clear Input
+    UI_guessInput.value = '';
+  } else {
+    // Disable input
+    UI_guessInput.disabled = true;
+  }
+  // Change border color
+  UI_guessInput.style.borderColor = color;
+  // Set message
+  setMessage(msg, color);
+}
 
 // Set message
 function setMessage(msg, color){
