@@ -74,8 +74,10 @@ function guessOutcome(msg, color){
     // Disable input
     UI_guessInput.disabled = true;
      // Play Again?
-    UI_guessBtn.value = 'Play Again';
+    UI_guessBtn.value = 'Play Again?';
     UI_guessBtn.className += 'play-again'; // Append to class so it doesn't ruin anything
+    UI_guessBtn.style.borderColor = 'green';
+    UI_guessBtn.style.color = 'green';
   }
   // Change border color
   UI_guessInput.style.borderColor = color;
