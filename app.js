@@ -56,7 +56,7 @@ UI_guessBtn.addEventListener('click', function(){
 
     if (guessesLeft === 0){
       // Game over - lost
-      guessOutcome(`Game over, you lost. The correct number was ${winningNum}.`, color_lose);
+      guessOutcome(`You lost, the correct number was ${winningNum}.`, color_lose);
     } else {
       // Game continues - answer wrong
       guessOutcome(`${guess} is not correct, ${guessesLeft} guesses left.`, color_continue);
