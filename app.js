@@ -8,8 +8,8 @@ GAME FUNCTION:
 */
 
 // Game values
-let min = 14124,
-    max = 10000231,
+let min = 1,
+    max = 10,
     winningNum = getWinningNum(),
     guessesLeft = 3;
 
@@ -24,7 +24,9 @@ const UI_game = document.querySelector('#game'),
 // Color values
 const color_win = 'green',
       color_lose = 'red',
-      color_continue = 'darkorange';
+      color_continue = 'darkorange',
+      color_error = 'red',
+      color_playAgain = 'green';
 
 // Assign UI min and max
 UI_minNum.textContent = min;
@@ -50,22 +52,22 @@ UI_guessBtn.addEventListener('click', function(){
   } else {
     // Give error if input is invalid, otherwise take away a guess and determine outcome
     if (invalidInputChecker){
-      // Give error 
-      setMessage(`Please enter a valid number between ${min} and ${max}.`, 'red');
+      // Change input field guess to error color
+      UI_guessInput.style.borderColor = color_error;
+      // Give error
+      setMessage(`Please enter a number between ${min} and ${max}.`, color_error);
     } else {
       // Wrong number, deduct a guess
       guessesLeft -=1;
 
       if (guessesLeft === 0){
         // Game over - lost
-        guessOutcome(`You lost, the correct number was ${winningNum}.`, color_lose);
+        guessOutcome(`You lose, the correct number was ${winningNum}.`, color_lose);
       } else {
         // Game continues - answer wrong
         guessOutcome(`${guess} is not correct, ${guessesLeft} guesses left.`, color_continue);
       }
-    }
-
-    
+    }  
   }
 });
 
@@ -81,8 +83,8 @@ function guessOutcome(msg, color){
      // Play Again?
     UI_guessBtn.value = 'Play Again?';
     UI_guessBtn.className += 'play-again'; // Append to class so it doesn't ruin anything
-    UI_guessBtn.style.borderColor = 'green';
-    UI_guessBtn.style.color = 'green';
+    UI_guessBtn.style.borderColor = color_playAgain;
+    UI_guessBtn.style.color = color_playAgain;
   }
   // Change border color
   UI_guessInput.style.borderColor = color;
