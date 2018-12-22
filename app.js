@@ -8,8 +8,8 @@ GAME FUNCTION:
 */
 
 // Game values
-let min = 1,
-    max = 10,
+let min = 14124,
+    max = 10000231,
     winningNum = getWinningNum(),
     guessesLeft = 3;
 
@@ -40,27 +40,32 @@ UI_game.addEventListener('mousedown', function(e){
 // Listen for guess
 UI_guessBtn.addEventListener('click', function(){
   let guess = parseInt(UI_guessInput.value);
-
-  // Validate
-  if (isNaN(guess) || guess < min || guess > max){
-    setMessage(`Please enter a number between ${min} and ${max}.`, 'red')
-  }
-
+  let invalidInputChecker = (guess < min || guess > max || isNaN(guess));
+  console.log(invalidInputChecker);
+  
   // Check if user won
   if (guess === winningNum) {
     // Game over - won
     guessOutcome(`${winningNum} is correct, YOU WIN!`, color_win);
   } else {
-    // Wrong number
-    guessesLeft -=1;
-
-    if (guessesLeft === 0){
-      // Game over - lost
-      guessOutcome(`You lost, the correct number was ${winningNum}.`, color_lose);
+    // Give error if input is invalid, otherwise take away a guess and determine outcome
+    if (invalidInputChecker){
+      // Give error 
+      setMessage(`Please enter a valid number between ${min} and ${max}.`, 'red');
     } else {
-      // Game continues - answer wrong
-      guessOutcome(`${guess} is not correct, ${guessesLeft} guesses left.`, color_continue);
+      // Wrong number, deduct a guess
+      guessesLeft -=1;
+
+      if (guessesLeft === 0){
+        // Game over - lost
+        guessOutcome(`You lost, the correct number was ${winningNum}.`, color_lose);
+      } else {
+        // Game continues - answer wrong
+        guessOutcome(`${guess} is not correct, ${guessesLeft} guesses left.`, color_continue);
+      }
     }
+
+    
   }
 });
 
