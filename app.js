@@ -43,7 +43,6 @@ UI_game.addEventListener('mousedown', function(e){
 UI_guessBtn.addEventListener('click', function(){
   let guess = parseInt(UI_guessInput.value);
   let invalidInputChecker = (guess < min || guess > max || isNaN(guess));
-  console.log(invalidInputChecker);
   
   // Check if user won
   if (guess === winningNum) {
