@@ -58,7 +58,6 @@ UI_guessBtn.addEventListener('click', function(){
     } else {
       // Wrong number, deduct a guess
       guessesLeft -=1;
-
       if (guessesLeft === 0){
         // Game over - lost
         guessOutcome(`You lose, the correct number was ${winningNum}.`, color_lose);
